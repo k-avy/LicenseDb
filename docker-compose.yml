@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: 2023 Kavya Shukla <kavyuushukla@gmail.com>
+# SPDX-License-Identifier: GPL-2.0-only
+
+version: '3.9'
+
+services:
+  go_app:
+    container_name: go_app
+    ##image: license
+    build: 
+      context: .
+    command:
+        - "./laas"
+        # - "-port=5432"
+        - "-host=go_db"
+        # - "-user=fossy"
+        # - "-dbname=fossology"
+        # - "-password=fossy"
+        - "-datafile=/data/licenseRef.json"
+        - "-populatedb=true"
+    ports:
+      - "8080:8080"
+    depends_on:
+      go_db:
+        condition: service_healty
+        restart: true
+    volumes:
+      - ./data:/data
+  go_db:
+    container_name: go_db
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: fossy
+      POSTGRES_USER: fossy
+      POSTGRES_DB: fossology
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
