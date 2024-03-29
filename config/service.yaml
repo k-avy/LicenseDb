@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: laas
+  labels:
+    app.kubernetes.io/name: laas
+spec:
+  selector:
+    app.kubernetes.io/name: laas
+  ports:
+    - port: 8080
+      targetPort: 8080

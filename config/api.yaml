@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laas
+  labels:
+    app.kubernetes.io/name: laas
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: laas
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: laas
+    spec:
+      containers:
+        - name: laas
+          image: ko://github.com/fossology/LicenseDb/cmd/laas
+          args: 
+           - "-host"
+           - "postgres-service.licensedb.svc.cluster.local"
+          #  - "-port"
+          #  - "-dbname"
+          #  - "-user"
+          #  - "-password"
+          #  - "-datafile"
+           - "-populatedb"
+           - "false"
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          volumeMounts: 
+            - name: laas-config-volume
+              mountPath: /config
+      volumes:
+        - name: laas-config-volume
+          configMap:
+            name: laas-config
