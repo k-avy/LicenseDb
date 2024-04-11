@@ -1,12 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres
-  labels: 
+  name: postgres-secret
+  labels:
     app.kubernetes.io/name: laas-postgres
 data:
   POSTGRES_DB: fossology
   POSTGRES_USER: fossy
   POSTGRES_PASSWORD: fossy
-
-

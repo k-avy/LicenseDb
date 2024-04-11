@@ -11,12 +11,12 @@ spec:
       app.kubernetes.io/name: laas-postgres
   template:
     metadata:
-      labels: 
+      labels:
         app.kubernetes.io/name: laas-postgres
     spec:
       containers:
         - name: postgres
-          image: docker.io/postgres:latest
+          image: postgres:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432

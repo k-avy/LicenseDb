@@ -16,23 +16,22 @@ spec:
       containers:
         - name: laas
           image: ko://github.com/fossology/LicenseDb/cmd/laas
-          args: 
-           - "-host"
-           - "postgres-service.licensedb.svc.cluster.local"
+          args:
+            - "-host"
+            - "postgres-service.licensedb.svc.cluster.local"
           #  - "-port"
           #  - "-dbname"
           #  - "-user"
           #  - "-password"
           #  - "-datafile"
-           - "-populatedb"
-           - "false"
+          #  - "-populatedb"
           resources:
             limits:
               memory: "128Mi"
               cpu: "500m"
           ports:
             - containerPort: 8080
-          volumeMounts: 
+          volumeMounts:
             - name: laas-config-volume
               mountPath: /config
       volumes:
